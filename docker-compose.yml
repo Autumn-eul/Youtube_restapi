@@ -1,0 +1,14 @@
+version: "3.11" # Docker ComposeAPI Version
+
+services:
+  app:
+    build:
+      context: .
+      args:
+        - DEV=true
+    ports:
+      - "8000:8000"
+    volumes: # 저장공간
+      - ./app:/app
+    command: sh -c "python manage.py runserver 0.0.0.0:8000" # 장고를 실행하는 명령어
+    # 0.0.0.0:8000 => 어떤 경로에서 접속을 해도 장고를 실행할 수 있음
