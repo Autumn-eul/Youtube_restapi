@@ -1,1 +1,1 @@
-asdfsdd
+asdfsdd = 0
