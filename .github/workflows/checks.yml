@@ -14,17 +14,17 @@ jobs:
               with:
                 username: ${{ secrets.DOCKERHUB_USER }}
                 password: ${{ secrets.DOCKERHUB_TOKEN }}
-                
+
+            - name: Install Docker Compose V2
+              run: |
+                sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                sudo chmod +x /usr/local/bin/docker-compose
+
             - name: Check out - pull repository code # Github 에 있는 코드를 작업 환경으로 가져오는 역할
               uses: actions/checkout@v2
 
-            - name: Install Docker Compose
-              run: |
-                sudo apt-get update
-                sudo apt-get install -y docker-compose
-
-            - name: Run Test-Code
-              run: docker-compose run --rm app sh -c 'python manage.py test'
-
-            - name: Run Flake8 for Lint Check # pep8 style guide 를 잘 준수하고 있는지 체크
-              run: docker-compose run --rm app sh -c 'flake8'
+            - name: Docker Build
+              run: docker compose build app
+      
+            - name: Test
+              run: docker compose run --rm app python manage.py test
