@@ -12,3 +12,19 @@ services:
       - ./app:/app
     command: sh -c "python manage.py runserver 0.0.0.0:8000" # 장고를 실행하는 명령어
     # 0.0.0.0:8000 => 어떤 경로에서 접속을 해도 장고를 실행할 수 있음
+    environment:
+      - DB_HOST=db
+      - DB_NAME=youtube
+      - DB_USER=lolll
+      - DB_PASSWORD=pw123
+    depends_on:
+      - db # db 가 준비가 되면 컨테이너를 실행시켜
+
+  db: # PostfreSQL Database
+    image: postgresql:16-alpine
+    volumes: # 데이터를 어느 공간에 저장 해줄까
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRE_DB=youtube
+      - POSTGRE_USER=lolll
+      - POSTGRE_PASSWORD=pw123
