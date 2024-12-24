@@ -4,6 +4,48 @@
 
 - Github
 
+## Model 구조 => ORM
+
+(1) User => users
+- email
+- password
+- nickname
+- is_business
+
+(2) Video => videos
+- title
+- description
+- link
+- views_count
+- thumbnail
+- video_file
+
+ex) 파일 (이미지, 동영상)
+=> 장고에 부하가 걸림
+=> S3 Bucket (저렴, 속도가 빠름) -> 결과물: 링크
+
+(3) Reaction => reactions
+- User: FK
+- Video: FK
+- reaction (like, dislike, cancel) => 실제 youtube rest api
+
+(4) Comment => comments
+- User: FK
+- Video: FK
+- content
+- like
+- dislike
+
+(5) Subscription => subscriptions
+- User: FK => subscriber (내가 구독한 사람)
+- User: FK => subscribed_to (나를 구독한 사람)
+
+(6) Common => common
+- created_at
+- updated_at
+
+-----------------
+
 ### Docker 란??
 애플리케이션을 신속하게 구축, 테스트 및 배포 할 수 있는 소프트웨어 플랫폼
 ### Docker 구성요소
