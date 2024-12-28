@@ -1,5 +1,6 @@
 from django.db import models
 from common.models import CommonModel
+from django.db.models import Count, Q
 
 # User : Reaction => User : Reaction, Reaction, Reaction ... => 1 : N(FK)
 # Video : Reaction => Video : Reaction, Reaction, Reaction ... => 1 : N(FK)
@@ -23,3 +24,12 @@ class Reaction(CommonModel):
         choices = REACTION_CHOICES,
         default = NO_REACTION
     )
+
+    @staticmethod
+    def get_video_reactions(video):
+        reactions = Reaction.objects.filter(video = video).aggregate(
+            likes_count = Count('pk', filter = Q(reaction = Reaction.LIKE)),
+            dislikes_count = Count('pk', filter=Q(reaction = Reaction.DISLIKE)),
+        )
+
+        return reactions
