@@ -4,11 +4,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-2hn#iql*^9x+^e036yp&z1$v#nnqb9grf3r5el+i^2pmg9giv_'
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "test")
+DEBUG = bool(int(os.environ.get("DEBUG", 0))) # 0: False
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -118,3 +116,9 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     'DRFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+STATIC_URL = '/static/static/'
+MEDIA_URL = '/static/media/'
+
+MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'

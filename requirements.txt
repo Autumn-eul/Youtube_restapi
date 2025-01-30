@@ -2,5 +2,6 @@ django>=5.0.4,<6.0.0 # Django
 djangorestframework>=3.14.0,<4.0.0 # DRF(Django Rest Framework)
 psycopg2-binary>=2.9.9,<3.0.0 # Psyconpg2: PostgreSQL connector
 drf-spectacular>=0.27.2,<0.28.0 # DRF-Spectacular
+uwsgi>=2.0.24,<2.1.0 # uWSGI
 
 # docker-compose build
